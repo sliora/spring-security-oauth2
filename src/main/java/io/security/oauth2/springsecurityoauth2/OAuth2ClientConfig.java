@@ -24,7 +24,7 @@ public class OAuth2ClientConfig {
 
 
         http.authorizeRequests(authRequest -> authRequest
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
         http.oauth2Login(Customizer.withDefaults());
 
         return http.build();
