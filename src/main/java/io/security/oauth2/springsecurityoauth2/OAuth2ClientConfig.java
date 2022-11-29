@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.ClientRegistrations;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -16,11 +17,13 @@ public class OAuth2ClientConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests(authRequest -> authRequest.anyRequest().permitAll());
-        http.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
-                .authorizationEndpoint(authEndpoint -> authEndpoint.baseUri("/oauth2/v1/authorization"))
-                .redirectionEndpoint(reEndpoint -> reEndpoint.baseUri("/login/v1/oauth2/code/*")));
-
+        http.authorizeRequests(authRequest -> authRequest
+                .antMatchers("/home", "/client").permitAll()
+                .anyRequest().authenticated());
+        //http.oauth2Login(authLogin -> authLogin.authorizationEndpoint(authEndpoint -> authEndpoint.authorizationRequestResolver(customOAuth2AuthorizationRequestResolver())));
+        http.oauth2Client(Customizer.withDefaults());
+        http.logout().logoutSuccessUrl("/home");
         return http.build();
     }
+
 }
