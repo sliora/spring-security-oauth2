@@ -5,53 +5,19 @@ spring:
   security:
     oauth2:
       client:
+      provider:
+        keycloak:
+          authorization-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/auth
+          token-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/token
+          issuer-uri: http://localhost:8080/realms/oauth2
+          user-info-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/userinfo
+          jwk-set-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/certs
+          user-name-attribute: preferred_username
         registration:
-#          keycloak:
-#            clientId: oauth2-client-app
-#            clientSecret: mKa0y9tItr90KeTSvAui4UprSk3ooQB0
-#            clientName: oauth2-client-app
-#            authorizationGrantType: authorization_code
-#            scope: openid,profile
-#            clientAuthenticationMethod: client_secret_basic
-#            redirectUri: http://localhost:8081/client
-#            provider: keycloak
-
           keycloak:
-            clientId: oauth2-client-app
-            clientSecret: mKa0y9tItr90KeTSvAui4UprSk3ooQB0
-            clientName: oauth2-client-app
-            authorizationGrantType: client_credentials
-            clientAuthenticationMethod: client_secret_basic
-            provider: keycloak
-
-          keycloakWithPKCE:
-            clientId: oauth2-client-app2
-            clientSecret: mkPsNmXFeBPFPEeDfnAMwcoEnAseZeth
-            clientName: oauth2-client-app2
             authorizationGrantType: authorization_code
-            scope: openid,profile
-            clientAuthenticationMethod: client_secret_basic
-            #                        clientAuthenticationMethod: none
-            redirectUri: http://localhost:8081/login/oauth2/code/keycloak
-            provider: keycloak
-
-          keycloak2:
-            clientId: oauth2-client-app3
-            clientSecret: tynI8eYUw4H1fJYxwLQ36XhFC1Ge1w1x
-            clientName: oauth2-client-app3
-            authorizationGrantType: implicit
-            scope: openid,profile
-            clientAuthenticationMethod: none
-            redirectUri: http://localhost:8081/home
-            provider: keycloak
-
-
-
-        provider:
-          keycloak:
-            authorization-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/auth
-            token-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/token
-            issuer-uri: http://localhost:8080/realms/oauth2
-            user-info-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/userinfo
-            jwk-set-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/certs
-            user-name-attribute: preferred_username
+            clientId: oauth2-client-app
+            clientName: oauth2-client-app
+            clientSecret: mKa0y9tItr90KeTSvAui4UprSk3ooQB0
+            redirect-uri: http://localhost:8081/login/oauth2/code/keycloak
+            scope: openid,email
